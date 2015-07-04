@@ -1,4 +1,4 @@
-# <%= project %>
+# <%= projectName.title %>
 
 <%= description %>
 **requires node, grunt, and bower**

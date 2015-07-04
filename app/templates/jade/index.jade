@@ -3,7 +3,7 @@ html(lang="en").no-js
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
-    title <%= project %>
+    title <%= projectName.title %>
     meta(name="description", content="<%= description %>")
     include _head.jade
 
@@ -13,7 +13,7 @@ html(lang="en").no-js
       header.header
         .row
           .columns
-            h1 <%= project %>
+            h1 <%= projectName.title %>
 
       main#main
         .row

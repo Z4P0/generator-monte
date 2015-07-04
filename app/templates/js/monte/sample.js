@@ -5,7 +5,7 @@
      * Sample - a sample JS module file for our project
      */
 
-    <%= project_underscored %>.modules.sample = {
+    <%= projectName.title %>.modules.sample = {
 
         init: function() {
             console.log('hello from: sample.js');

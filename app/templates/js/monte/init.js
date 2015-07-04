@@ -3,10 +3,10 @@
     'use strict';
 
 
-    window.<%= project_underscored %> = {
+    window.<%= projectName.title %> = {
 
 
-        tag: '<%= project %>',
+        tag: '<%= projectName.title %>',
 
         settings: {},
 
@@ -75,15 +75,15 @@
                 ];
 
                 // load Howler
-                if (<%= project_underscored %>.sound === undefined) {
-                    <%= project_underscored %>.sound = new Howl({
+                if (<%= projectName.title %>.sound === undefined) {
+                    <%= projectName.title %>.sound = new Howl({
                         urls: [mp3s[Math.floor(Math.random() * 3)]]
                     }).play();
 
                 } else {
                     // play new sound. stop other one
-                    <%= project_underscored %>.sound.unload();
-                    <%= project_underscored %>.sound = new Howl({
+                    <%= projectName.title %>.sound.unload();
+                    <%= projectName.title %>.sound = new Howl({
                         urls: [mp3s[Math.floor(Math.random() * 3)]]
                     }).play();
 
@@ -99,7 +99,7 @@
     // initialize the things
     $(document).ready(function () {
         $(document).foundation();
-        <%= project_underscored %>.init();
+        <%= projectName.title %>.init();
     });
 
 }($ || jQuery, window, window.document));

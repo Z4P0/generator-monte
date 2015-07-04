@@ -1,11 +1,11 @@
 {
-  "name": "<%= project %>",
+  "name": "<%= projectName.slug %>",
   "version": "0.1.0",
   "homepage": "http://luisrosar.io",
   "authors": [
     "luis rosario //zapo"
   ],
-  "description": "web project starter",
+  "description": "<%= description %>",
   "license": "MIT",
   "ignore": [
     "**/.*",

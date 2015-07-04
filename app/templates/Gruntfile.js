@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         images_dir: 'images/',
         jade_dir: 'jade/',
         js_files: [
-            'js/<%= projectName %>/init.js',
+            'js/<%= projectName.slug %>/init.js',
         ],
         js_vendor_files: [
             'bower_components/modernizr/modernizr.js',

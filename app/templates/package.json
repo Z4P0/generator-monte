@@ -1,16 +1,16 @@
 {
-  "name": "<%= project_underscored %>",
+  "name": "<%= projectName.slug %>",
   "description": "<%= description %>",
   "author": "luis rosario //zapo",
-  "homepage": "http://www.luisrosar.io/<%= project_slug %>",
+  "homepage": "http://www.luisrosar.io/<%= projectName.slug %>",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aztec8/<%= project_slug %>.git"
+    "url": "https://github.com/aztec8/<%= projectName.slug %>.git"
   },
   "license": {
     "type": "MIT",
-    "url": "https://github.com/aztec8/<%= project_slug %>/blob/master/LICENSE"
+    "url": "https://github.com/aztec8/<%= projectName.slug %>/blob/master/LICENSE"
   },
   "scripts": {
     "postinstall": "bower install && grunt build"
