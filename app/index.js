@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var _s = require('underscore.string');
 
 module.exports = yeoman.generators.Base.extend({
 
@@ -14,29 +15,38 @@ module.exports = yeoman.generators.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      chalk.red('what\'s good yo?')
+      chalk.white('what\'s good yo?')
       // 'Welcome to the premium ' + chalk.red('Fletcher') + ' generator!'
     ));
 
     var prompts = [
       {
-        type: 'confirm',
-        name: 'someOption',
-        message: 'Would you like to enable this option?',
-        default: true
+        type    : 'input',
+        name    : 'project',
+        message : 'what are you calling your project?',
+        default : this.appname // Default to current folder name
       },
       {
-        type: 'input',
-        name: 'project_name',
-        message: 'What\'s the project name?',
-        default: this.appname
+        type    : 'input',
+        name    : 'description',
+        message : 'what\'s it about?',
+        default : 'web project'
       }
     ];
 
     this.prompt(prompts, function (props) {
       this.props = props;
+
+      // underscore the name: Project Name --> project_name
+      this.props.project_underscored = _s.underscored(props.project);
+      // slugify the name: Project Name --> project-name
+      this.props.project_slug = _s.slugify(props.project);
+      console.log(this.props);
+
       // To access props later use this.props.someOption;
-      console.log(props);
+      this.log(yosay(
+        chalk.white('cool. building ' + props.project + '\'s project structure now...')
+      ));
 
       done();
     }.bind(this));
@@ -84,10 +94,14 @@ module.exports = yeoman.generators.Base.extend({
       // ----------------------------------------
 
       // bower file
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('bower.json'),
-        this.destinationPath('bower.json')
+        this.destinationPath('bower.json'),
+        {
+          project: this.props.project
+        }
       );
+
 
       // gitignore
       this.fs.copy(
@@ -95,11 +109,14 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('.gitignore')
       );
 
-      // gruntfile
-      this.fs.copy(
-        this.templatePath('Gruntfile.js'),
-        this.destinationPath('Gruntfile.js')
-      );
+      // // gruntfile
+      // this.fs.copyTpl(
+      //   this.templatePath('Gruntfile.js'),
+      //   this.destinationPath('Gruntfile.js'),
+      //   {
+      //     project: this.props.project
+      //   }
+      // );
 
       // license
       this.fs.copy(
@@ -108,15 +125,23 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       // readme
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('README.md'),
-        this.destinationPath('README.md')
+        this.destinationPath('README.md'),
+        {
+          project: this.props.project
+        }
       );
 
       // package.json
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('package.json'),
-        this.destinationPath('package.json')
+        this.destinationPath('package.json'),
+        {
+          project: this.props.project,
+          project_slug: this.props.project_slug,
+          description: this.props.description
+        }
       );
 
 
@@ -130,15 +155,30 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       // jade
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('jade'),
-        this.destinationPath('jade')
+        this.destinationPath('jade'),
+        {
+          project: this.props.project,
+          description: this.props.description
+        }
       );
 
       // js
-      this.fs.copy(
-        this.templatePath('js'),
-        this.destinationPath('js')
+      this.fs.copyTpl(
+        this.templatePath('js/monte/init.js'),
+        this.destinationPath('js/' + this.props.project_underscored + '/init.js'),
+        {
+          project: this.props.project,
+          project_underscored: _s.classify(this.props.project_underscored)
+        }
+      );
+      this.fs.copyTpl(
+        this.templatePath('js/monte/sample.js'),
+        this.destinationPath('js/' + this.props.project_underscored + '/sample.js'),
+        {
+          project_underscored: _s.classify(this.props.project_underscored)
+        }
       );
 
       // misc
@@ -158,7 +198,7 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    this.installDependencies();
+    // this.installDependencies();
   },
 
   method1: function () {
@@ -168,4 +208,5 @@ module.exports = yeoman.generators.Base.extend({
   method2: function () {
     console.log('method2');
   }
+
 });

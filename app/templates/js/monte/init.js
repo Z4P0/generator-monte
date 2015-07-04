@@ -3,10 +3,10 @@
     'use strict';
 
 
-    window.arrow = {
+    window.<%= project_underscored %> = {
 
 
-        tag: 'a r r o w',
+        tag: '<%= project %>',
 
         settings: {},
 
@@ -68,36 +68,22 @@
             konami: function () {
 
                 // file urls
-                var howlerjs_url = 'js/vendor/howler.min.js';
                 var mp3s = [
                     'misc/internet.mp3',
                     'misc/mario.mp3',
                     'misc/seinfeld.mp3'
                 ];
-                // file paths are different for Drupal
-                if (arrow.settings.in_drupal_environment) {
-                    for (var i = 0; i < mp3s.length; i++) {
-                        mp3s[i] = arrow.settings.drupal_theme_path + mp3s[i];
-                    }
-                    howlerjs_url = arrow.settings.drupal_theme_path + howlerjs_url;
-                }
 
                 // load Howler
-                if (window.Howl === undefined) {
-                    $.ajax({
-                        url: howlerjs_url,
-                        dataType: 'script',
-                        success: function () {
-                            arrow.sound = new Howl({
-                                urls: [mp3s[Math.floor(Math.random() * 3)]]
-                            }).play();
-                        }
-                    });
+                if (<%= project_underscored %>.sound === undefined) {
+                    <%= project_underscored %>.sound = new Howl({
+                        urls: [mp3s[Math.floor(Math.random() * 3)]]
+                    }).play();
 
                 } else {
                     // play new sound. stop other one
-                    arrow.sound.unload();
-                    arrow.sound = new Howl({
+                    <%= project_underscored %>.sound.unload();
+                    <%= project_underscored %>.sound = new Howl({
                         urls: [mp3s[Math.floor(Math.random() * 3)]]
                     }).play();
 
@@ -113,7 +99,7 @@
     // initialize the things
     $(document).ready(function () {
         $(document).foundation();
-        arrow.init();
+        <%= project_underscored %>.init();
     });
 
 }($ || jQuery, window, window.document));

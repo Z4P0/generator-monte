@@ -1,10 +1,10 @@
-# monte
+# <%= project %>
 
 base web project.
 **requires node, grunt, and bower**
 
 ```
-[monte]$ npm install
+$ npm install
 ```
 
 In a seperate tab run a Python server

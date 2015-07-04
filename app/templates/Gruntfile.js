@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         images_dir: 'images/',
         jade_dir: 'jade/',
         js_files: [
-            'js/arrow/init.js',
+            'js/<%= project %>/init.js',
         ],
         js_vendor_files: [
             'bower_components/modernizr/modernizr.js',
@@ -60,9 +60,9 @@ module.exports = function(grunt) {
         project: project,
 
         banner: '/*!\n' +
-                ' * <%= pkg.name %> v<%= pkg.version %> (<%= pkg.homepage %>)\n' +
-                ' * Copyright 2014-<%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-                ' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
+                ' * <%%= pkg.name %> v<%%= pkg.version %> (<%%= pkg.homepage %>)\n' +
+                ' * Copyright 2014-<%%= grunt.template.today("yyyy") %> <%%= pkg.author %>\n' +
+                ' * Licensed under <%%= pkg.license.type %> (<%%= pkg.license.url %>)\n' +
                 ' */\n',
 
 
