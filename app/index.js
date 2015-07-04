@@ -6,6 +6,14 @@ var _s = require('underscore.string');
 
 module.exports = yeoman.generators.Base.extend({
 
+  constructor: function () {
+
+    yeoman.generators.Base.apply(this, arguments);
+
+    // --skip-install, don't run npm or bower install
+    this.option('skip-install');
+  },
+
   initializing: function () {
     this.pkg = require('../package.json');
   },
@@ -121,7 +129,8 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('README.md'),
         this.destinationPath('README.md'),
         {
-          project: this.props.project
+          project: this.props.project,
+          description: this.props.description
         }
       );
 
@@ -132,6 +141,7 @@ module.exports = yeoman.generators.Base.extend({
         {
           project: this.props.project,
           project_slug: this.props.project_slug,
+          project_underscored: this.props.project_underscored,
           description: this.props.description
         }
       );
@@ -190,15 +200,14 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    // this.installDependencies();
-  },
+    if (!this.options['skip-install']) {
+      this.installDependencies();
+    }
 
-  method1: function () {
-    console.log('method1');
-  },
-
-  method2: function () {
-    console.log('method2');
+    this.log(yosay(
+      'do work son'
+    ));
   }
+
 
 });

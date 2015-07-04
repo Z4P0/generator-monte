@@ -1,6 +1,6 @@
 # <%= project %>
 
-base web project.
+<%= description %>
 **requires node, grunt, and bower**
 
 ```

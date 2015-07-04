@@ -1,5 +1,5 @@
 {
-  "name": "<%= project %>",
+  "name": "<%= project_underscored %>",
   "description": "<%= description %>",
   "author": "luis rosario //zapo",
   "homepage": "http://www.luisrosar.io/<%= project_slug %>",
