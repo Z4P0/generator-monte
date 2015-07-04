@@ -1,0 +1,16 @@
+@import "vars";
+@import "settings";
+@import "mixins";
+// vendor
+@import "bower_components/foundation/scss/normalize.scss";
+@import "bower_components/foundation/scss/foundation.scss";
+
+
+// custom
+html {
+    -webkit-font-smoothing: antialiased;
+}
+::selection {
+    background: $red;
+    text-shadow: none;
+}
