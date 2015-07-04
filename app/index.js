@@ -37,11 +37,9 @@ module.exports = yeoman.generators.Base.extend({
     this.prompt(prompts, function (props) {
       this.props = props;
 
-      // underscore the name: Project Name --> project_name
-      this.props.project_underscored = _s.underscored(props.project);
-      // slugify the name: Project Name --> project-name
-      this.props.project_slug = _s.slugify(props.project);
-      console.log(this.props);
+      this.props.project_underscored  = _s.underscored(props.project);  // --> project_name
+      this.props.project_slug         = _s.slugify(props.project);  // --> project-name
+      this.projectName                = props.project_underscored;
 
       // To access props later use this.props.someOption;
       this.log(yosay(
@@ -109,14 +107,8 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('.gitignore')
       );
 
-      // // gruntfile
-      // this.fs.copyTpl(
-      //   this.templatePath('Gruntfile.js'),
-      //   this.destinationPath('Gruntfile.js'),
-      //   {
-      //     project: this.props.project
-      //   }
-      // );
+      // gruntfile
+      this.template('Gruntfile.js');
 
       // license
       this.fs.copy(
