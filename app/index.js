@@ -170,19 +170,21 @@ module.exports = yeoman.generators.Base.extend({
       this.template('jade/index.jade');
 
       // js
+      var js_settings = {
+        projectName: this.projectName
+      };
+      if (this.customGlobal) {
+        js_settings.customGlobal = this.customGlobal;
+      }
       this.fs.copyTpl(
         this.templatePath('js/monte/init.js'),
         this.destinationPath('js/' + this.projectName.slug + '/init.js'),
-        {
-          projectName: this.projectName
-        }
+        js_settings
       );
       this.fs.copyTpl(
         this.templatePath('js/monte/sample.js'),
         this.destinationPath('js/' + this.projectName.slug + '/sample.js'),
-        {
-          projectName: this.projectName
-        }
+        js_settings
       );
 
       // misc
@@ -202,9 +204,9 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    // if (!this.options['skip-install']) {
-    //   this.installDependencies();
-    // }
+    if (!this.options['skip-install']) {
+      this.installDependencies();
+    }
 
     this.log(yosay(
       'do work son'

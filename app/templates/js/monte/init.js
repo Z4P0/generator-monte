@@ -3,7 +3,11 @@
     'use strict';
 
 
-    window.<%= projectName.title %> = {
+    <% if (customGlobal) { %>
+    window.<%= customGlobal %> = {
+    <% }  else { %>
+    window.<%= projectName.classed %> = {
+    <% } %>
 
 
         tag: '<%= projectName.title %>',
@@ -74,21 +78,34 @@
                     'misc/seinfeld.mp3'
                 ];
 
+                <% if (customGlobal) { %>
                 // load Howler
-                if (<%= projectName.title %>.sound === undefined) {
-                    <%= projectName.title %>.sound = new Howl({
+                if (<%= customGlobal %>.sound === undefined) {
+                    <%= customGlobal %>.sound = new Howl({
                         urls: [mp3s[Math.floor(Math.random() * 3)]]
                     }).play();
-
                 } else {
                     // play new sound. stop other one
-                    <%= projectName.title %>.sound.unload();
-                    <%= projectName.title %>.sound = new Howl({
+                    <%= customGlobal %>.sound.unload();
+                    <%= customGlobal %>.sound = new Howl({
                         urls: [mp3s[Math.floor(Math.random() * 3)]]
                     }).play();
-
+                }
+                <% }  else { %>
+                // load Howler
+                if (<%= projectName.classed %>.sound === undefined) {
+                    <%= projectName.classed %>.sound = new Howl({
+                        urls: [mp3s[Math.floor(Math.random() * 3)]]
+                    }).play();
+                } else {
+                    // play new sound. stop other one
+                    <%= projectName.classed %>.sound.unload();
+                    <%= projectName.classed %>.sound = new Howl({
+                        urls: [mp3s[Math.floor(Math.random() * 3)]]
+                    }).play();
                 }
 
+                <% } %>
             }
         }
 
@@ -99,7 +116,12 @@
     // initialize the things
     $(document).ready(function () {
         $(document).foundation();
-        <%= projectName.title %>.init();
+        <% if (customGlobal) { %>
+        <%= customGlobal %>.init();
+        <% }  else { %>
+        <%= projectName.classed %>.init();
+        <% } %>
+
     });
 
 }($ || jQuery, window, window.document));
