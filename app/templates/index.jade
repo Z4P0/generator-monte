@@ -1,0 +1,30 @@
+doctype html
+html(lang="en").no-js
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+    title <%= projectName.title %>
+    meta(name="description", content="<%= description %>")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="apple-touch-icon", href="apple-touch-icon.png")
+    link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro", rel="stylesheet", type="text/css")
+    link(rel="stylesheet", href="css/style.css")
+
+  body
+    a(href="#main").show-for-sr Skip to main content
+    .container
+      header.header
+        .row.page-section
+          .columns
+            h1 <%= projectName.title %>
+      main#main
+        .row.page-section
+          .columns.medium-8.medium-centered.large-6
+            p <%= description %>
+      footer.footer.jet-bg.white
+        .row.thin-page-section.text-right
+          .columns
+            small <%= projectName.title %> / z a p o / 2016
+
+    script(src="js/vendors.js")
+    script(src="js/main.js")

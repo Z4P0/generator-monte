@@ -1,16 +1,21 @@
-@import "vars";
-@import "settings";
+// setup
 @import "mixins";
-// vendor
-@import "bower_components/foundation/scss/normalize.scss";
-@import "bower_components/foundation/scss/foundation.scss";
+@import "vars";
+@import "settings";  // fonudation theme settings
 
+// vendors
+@import "bower_components/foundation-sites/scss/foundation";
+@import "bower_components/motion-ui/motion-ui";
 
-// custom
-html {
-    -webkit-font-smoothing: antialiased;
-}
+// base styles
+@include foundation-everything;  // invoke foundation scss
+@import "utilities";
+@include create-color-classes($theme_colors);  // $theme_colors is set in _vars. create-color-classes is defined in _mixins
 ::selection {
-    background: $red;
-    text-shadow: none;
+  background-color: tomato;
+  color: $white;
+  text-shadow: none;
 }
+
+// dat new new
+// here ~***~***~

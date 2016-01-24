@@ -90,40 +90,11 @@ module.exports = yeoman.generators.Base.extend({
 
     // general settings
     // ============================================================
-    projectfiles: function () {
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-    },
+    // projectfiles: function () {},
 
     // setting up arrowhead
     // ============================================================
     app: function () {
-
-
-      // hidden files
-      //
-      // hidden files can't be copied directly, we must rename them without the
-      // leading dot and copy them into the correct place with the dot in place
-      // ----------------------------------------
-      // js/jshintrc
-      this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('js/.jshintrc')
-      );
-      // scss/.csscomb.json
-      this.fs.copy(
-        this.templatePath('csscomb.json'),
-        this.destinationPath('scss/.csscomb.json')
-      );
-      // scss/.csslintrc
-      this.fs.copy(
-        this.templatePath('csslintrc'),
-        this.destinationPath('scss/.csslintrc')
-      );
-
-
 
       // individual files
       // ----------------------------------------
@@ -152,6 +123,18 @@ module.exports = yeoman.generators.Base.extend({
       // package.json
       this.template('package.json');
 
+      // apple-touch-icon
+      this.fs.copy(
+        this.templatePath('apple-touch-icon.png'),
+        this.destinationPath('apple-touch-icon.png')
+      );
+
+      // favicon
+      this.fs.copy(
+        this.templatePath('favicon.ico'),
+        this.destinationPath('favicon.ico')
+      );
+
 
 
       // folders
@@ -163,11 +146,7 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       // jade
-      this.fs.copy(
-        this.templatePath('jade'),
-        this.destinationPath('jade')
-      );
-      this.template('jade/index.jade');
+      this.template('index.jade');
 
       // js
       var js_settings = {
