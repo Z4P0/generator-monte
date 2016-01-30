@@ -56,14 +56,24 @@
         ];
 
         // load Howler
-        if (monte.sound === undefined) {
-          monte.sound = new Howl({
+        <% if (customGlobal) { %>
+        if (<%= customGlobal %>.sound === undefined) {
+          <%= customGlobal %>.sound = new Howl({
+        <% }  else { %>
+        if (<%= projectName.classed %>.sound === undefined) {
+          <%= projectName.classed %>.sound = new Howl({
+        <% } %>
             urls: [mp3s[Math.floor(Math.random() * 3)]]
           }).play();
         } else {
           // play new sound. stop other one
-          monte.sound.unload();
-          monte.sound = new Howl({
+          <% if (customGlobal) { %>
+          <%= customGlobal %>.sound.unload();
+          <%= customGlobal %>.sound = new Howl({
+          <% }  else { %>
+          <%= projectName.classed %>.sound.unload();
+          <%= projectName.classed %>.sound = new Howl({
+          <% } %>
             urls: [mp3s[Math.floor(Math.random() * 3)]]
           }).play();
         }
@@ -102,7 +112,6 @@
     <% }  else { %>
     <%= projectName.classed %>.init();
     <% } %>
-
   });
 
 }($ || jQuery, window, window.document));
