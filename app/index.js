@@ -50,13 +50,6 @@ module.exports = yeoman.generators.Base.extend({
         name    : 'description',
         message : 'what\'s it about?',
         default : 'A web project'
-      },
-      {
-        type      : 'input',
-        name      : 'customGlobal',
-        message   : 'do you wanna customize the JS global variable?',
-        optional  : true,
-        default   : _s.classify(this.appname)
       }
     ];
 
@@ -72,10 +65,6 @@ module.exports = yeoman.generators.Base.extend({
       };
 
       this.description = props.description;
-
-      if (props.customGlobal) {
-        this.customGlobal = props.customGlobal;
-      }
 
       // To access props later use this.props.someOption;
       this.log(yosay(
@@ -99,22 +88,10 @@ module.exports = yeoman.generators.Base.extend({
       // individual files
       // ----------------------------------------
 
-      // bower file
-      this.template('bower.json');
-
       // gitignore
       this.fs.copy(
         this.templatePath('gitignore'),
         this.destinationPath('.gitignore')
-      );
-
-      // gruntfile
-      this.template('Gruntfile.js');
-
-      // license
-      this.fs.copy(
-        this.templatePath('LICENSE'),
-        this.destinationPath('LICENSE')
       );
 
       // readme
@@ -149,21 +126,9 @@ module.exports = yeoman.generators.Base.extend({
       this.template('index.jade');
 
       // js
-      var js_settings = {
-        projectName: this.projectName
-      };
-      if (this.customGlobal) {
-        js_settings.customGlobal = this.customGlobal;
-      }
-      this.fs.copyTpl(
-        this.templatePath('js/monte/init.js'),
-        this.destinationPath('js/' + this.projectName.slug + '/init.js'),
-        js_settings
-      );
-      this.fs.copyTpl(
-        this.templatePath('js/monte/sample.js'),
-        this.destinationPath('js/' + this.projectName.slug + '/sample.js'),
-        js_settings
+      this.fs.copy(
+        this.templatePath('js/init.js'),
+        this.destinationPath('js/init.js')
       );
 
       // misc

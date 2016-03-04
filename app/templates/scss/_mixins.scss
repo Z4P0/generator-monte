@@ -1,30 +1,4 @@
-// media queries
-@mixin mq($breakpoint)
-{
-  // // to implement:
-  // $landscape
-  // $portrait
-
-  // small mq
-  @if $breakpoint == small {@media #{$small-up} {@content; } }
-  @if $breakpoint == small-only {@media #{$small-only} {@content; } }
-
-  // medium mq
-  @if $breakpoint == medium {@media #{$medium-up} {@content; } }
-  @if $breakpoint == medium-only {@media #{$medium-only} {@content; } }
-
-  // large mq
-  @if $breakpoint == large {@media #{$large-up} {@content; } }
-  @if $breakpoint == large-only {@media #{$large-only} {@content; } }
-
-  // xlarge mq
-  @if $breakpoint == xlarge {@media #{$xlarge-up} {@content; } }
-  @if $breakpoint == xlarge-only {@media #{$xlarge-only} {@content; } }
-
-}
-
-
-// this
+// conditional css
 @mixin if-there-are($n) {
   &:nth-last-child(n+#{$n}),
   &:nth-last-child(n+#{$n}) ~ * {
@@ -63,7 +37,7 @@
   }
 }
 
-
+// padding-top, padding-bottom
 @mixin page-section($size) {
   padding-top: $size;
   padding-bottom: $size;
@@ -75,4 +49,33 @@
   &:-moz-placeholder {@content; }
   &::-moz-placeholder {@content; }
   &:-ms-input-placeholder {@content; }
+}
+
+
+@mixin utilify($className, $cssRules, $mqs: ('medium', 'large')) {
+  .xtra-thin-#{$className}     {@each $rule, $value in $cssRules { #{$rule}: $value * 0.25; } }
+  .thin-#{$className}          {@each $rule, $value in $cssRules { #{$rule}: $value * 0.5; } }
+  .#{$className}               {@each $rule, $value in $cssRules { #{$rule}: $value; } }
+  .thick-#{$className}         {@each $rule, $value in $cssRules { #{$rule}: $value * 1.5; } }
+  .xtra-thick-#{$className}    {@each $rule, $value in $cssRules { #{$rule}: $value * 2; } }
+
+  @each $mq in $mqs {
+    @include breakpoint($mq) {
+      .#{$mq}-xtra-thin-#{$className}     {@each $rule, $value in $cssRules { #{$rule}: $value * 0.25; } }
+      .#{$mq}-thin-#{$className}          {@each $rule, $value in $cssRules { #{$rule}: $value * 0.5; } }
+      .#{$mq}-#{$className}               {@each $rule, $value in $cssRules { #{$rule}: $value; } }
+      .#{$mq}-thick-#{$className}         {@each $rule, $value in $cssRules { #{$rule}: $value * 1.5; } }
+      .#{$mq}-xtra-thick-#{$className}    {@each $rule, $value in $cssRules { #{$rule}: $value * 2; } }
+    }
+  }
+}
+
+
+@mixin querify($className, $cssRules, $mqs: ('medium', 'large')) {
+  .#{$className} {@each $rule, $value in $cssRules { #{$rule}: $value; } }
+  @each $mq in $mqs {
+    @include breakpoint($mq) {
+      .#{$mq}-#{$className} {@each $rule, $value in $cssRules { #{$rule}: $value; } }
+    }
+  }
 }
